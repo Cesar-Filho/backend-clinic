@@ -1,0 +1,187 @@
+swagger: '2.0'
+info:
+    description: 'API de Sample do projeto.'
+    version: '1.0.0'
+    title: 'API Sample'
+
+host: 'dev.aluno.mf.scisapp.com'
+basePath: '/v1'
+
+consumes:
+    - 'application/json'
+produces:
+    - 'application/json'
+
+schemes:
+    - https
+    - http
+
+securityDefinitions:
+    Bearer:
+        type: apiKey
+        in: header
+        name: Authorization
+
+tags:
+    - name: 'Sample'
+      description: 'Inserção, edição e consultas de Sample'
+
+paths:
+    /samples:
+        get:
+            tags:
+                - 'Sample'
+            summary: 'Lista os Sample ativos.'
+            operationId: 'listSample'
+            responses:
+                202:
+                    description: 'successful operation'
+                    schema:
+                        $ref: '#/definitions/List'
+                400:
+                    description: 'Request Parameter Error or Not passed token or Not data in response. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+                500:
+                    description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+        post:
+            tags:
+                - 'Sample'
+            summary: 'Cria a Sample.'
+            operationId: 'createSample'
+            parameters:
+                - in: header
+                  name: 'x-api-key'
+                  required: true
+                  type: string
+                - in: body
+                  name: 'Sample'
+                  required: true
+                  schema:
+                      $ref: '#/definitions/Sample'
+            responses:
+                200:
+                    description: 'successful operation'
+                    schema:
+                        $ref: '#/definitions/Success'
+                400:
+                    description: 'Request Parameter Error or Not passed token or Not data in response. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+                500:
+                    description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+    /samples/{id}:
+        get:
+            tags:
+                - 'Sample'
+            summary: 'Consulta sample por ID.'
+            operationId: 'SampleById'
+            parameters:
+                - in: path
+                  name: id
+                  description: 'Identificador da sample.'
+                  type: number
+                  required: true
+            responses:
+                200:
+                    description: 'successful operation'
+                    schema:
+                        $ref: '#/definitions/Sample'
+                400:
+                    description: 'Request Parameter Error or Not passed token or Not data in response. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+                500:
+                    description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+        put:
+            tags:
+                - 'Sample'
+            summary: 'Edita uma Sample.'
+            operationId: 'editSample'
+            parameters:
+                - in: path
+                  name: id
+                  description: 'Identificador da sample.'
+                  type: number
+                  required: true
+                - in: body
+                  name: 'Sample'
+                  required: true
+                  schema:
+                      $ref: '#/definitions/Sample'
+            responses:
+                202:
+                    description: 'successful operation'
+                    schema:
+                        $ref: '#/definitions/Success'
+                400:
+                    description: 'Request Parameter Error or Not passed token or Not data in response. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+                500:
+                    description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+        delete:
+            tags:
+                - 'Sample'
+            summary: 'Lista as Sample de um usuário.'
+            operationId: 'deleteSample'
+            parameters:
+                - in: path
+                  name: id
+                  description: 'Identificador da usuário.'
+                  type: number
+                  required: true
+                - in: body
+                  name: 'Sample'
+                  required: true
+                  schema:
+                      $ref: '#/definitions/Sample'
+            responses:
+                204:
+                    description: 'successful operation'
+                400:
+                    description: 'Request Parameter Error or Not passed token or Not data in response. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+                500:
+                    description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
+                    schema:
+                        $ref: '#/definitions/Error'
+
+definitions:
+    Sample:
+        type: 'object'
+        properties:
+            id:
+                type: number
+            name:
+                type: string
+    List:
+        type: 'object'
+        properties:
+            result:
+                type: array
+                items:
+                    type: object
+            count:
+                type: number
+    Success:
+        type: 'object'
+        properties:
+            message:
+                type: 'string'
+    Error:
+        type: 'object'
+        properties:
+            error:
+                type: 'string'
+            error_description:
+                type: 'string'
