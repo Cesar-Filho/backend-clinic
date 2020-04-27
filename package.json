@@ -31,6 +31,7 @@
         "helmet": "^3.21.3",
         "http-status-codes": "^1.4.0",
         "joi": "^14.3.1",
+        "mongoose": "^5.9.10",
         "serverless-http": "^2.3.2"
     },
     "devDependencies": {
