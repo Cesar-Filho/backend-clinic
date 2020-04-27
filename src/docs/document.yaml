@@ -1,24 +1,24 @@
 openapi: 3.0.0
 info:
-    description: "API do projeto."
-    version: "1.0.0"
-    title: "API clínica"
+    description: 'API do projeto.'
+    version: '1.0.0'
+    title: 'API clínica'
 
 servers:
     - url: http://localhost:3000
       description: Servidor local.
 
 tags:
-    - name: "Orders"
-      description: "Inserção, edição e consultas de pedidos de exames"
+    - name: 'Orders'
+      description: 'Inserção, edição e consultas de pedidos de exames'
 
 paths:
     /orders:
         get:
             tags:
-                - "Orders"
-            summary: "Lista os exames ativos."
-            operationId: "listOrders"
+                - 'Orders'
+            summary: 'Lista os exames ativos.'
+            operationId: 'listOrders'
             parameters:
                 - in: query
                   name: patient_id
@@ -34,16 +34,16 @@ paths:
                       type: string
             responses:
                 200:
-                    $ref: "#/components/responses/ListOrders"
+                    $ref: '#/components/responses/ListOrders'
                 400:
-                    $ref: "#/components/responses/BadRequest"
+                    $ref: '#/components/responses/BadRequest'
                 500:
-                    $ref: "#/components/responses/InternalError"
+                    $ref: '#/components/responses/InternalError'
         post:
             tags:
-                - "Orders"
-            summary: "Cria um pedido de exame."
-            operationId: "createOrders"
+                - 'Orders'
+            summary: 'Cria um pedido de exame.'
+            operationId: 'createOrders'
             parameters:
                 - in: path
                   name: order
@@ -59,22 +59,83 @@ paths:
                               type: string
             responses:
                 201:
-                    $ref: "#/components/responses/Order"
+                    $ref: '#/components/responses/Order'
                 400:
-                    $ref: "#/components/responses/BadRequest"
+                    $ref: '#/components/responses/BadRequest'
                 500:
-                    $ref: "#/components/responses/InternalError"
+                    $ref: '#/components/responses/InternalError'
+    /orders/{id}:
+        get:
+            tags:
+                - 'Orders'
+            summary: 'Consulta um pedido de exame.'
+            operationId: 'byIdOrders'
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    $ref: '#/components/responses/Order'
+                400:
+                    $ref: '#/components/responses/BadRequest'
+        put:
+            tags:
+                - 'Orders'
+            summary: 'edita um pedido de exame.'
+            operationId: 'editOrders'
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type:
+                - in: path
+                  name: order
+                  required: true
+                  schema:
+                      type: object
+                      properties:
+                          status:
+                              type: string
+                          patient_id:
+                              type: number
+                          exam_type:
+                              type: string
+            responses:
+                200:
+                    $ref: '#/components/responses/Order'
+                400:
+                    $ref: '#/components/responses/BadRequest'
+        delete:
+            tags:
+                - 'Orders'
+            summary: 'Deleta um pedido de exame.'
+            operationId: 'deleteOrders'
+            parameters:
+                - in: path
+                  name: id
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                204:
+                    description: 'Retorna somente status.'
+                400:
+                    $ref: '#/components/responses/BadRequest'
 
 components:
     responses:
         Order:
-            description: "Pedido de exame."
+            description: 'Pedido de exame.'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/order"
+                        $ref: '#/components/schemas/order'
         ListOrders:
-            description: "Listagem de pedidos de exames."
+            description: 'Listagem de pedidos de exames.'
             content:
                 application/json:
                     schema:
@@ -82,49 +143,49 @@ components:
                         items:
                             type: object
                             properties:
-                            $ref: "#/components/schemas/order"
+                            $ref: '#/components/schemas/order'
         Success:
-            description: "Requisição efetuada com sucesso."
+            description: 'Requisição efetuada com sucesso.'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/success"
+                        $ref: '#/components/schemas/success'
         NotFound:
-            description: "Recurso fornecido não encontrado"
+            description: 'Recurso fornecido não encontrado'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
         BadRequest:
-            description: "Erro no processamento da requisição, dados fornecidos invalidos"
+            description: 'Erro no processamento da requisição, dados fornecidos invalidos'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
         InternalError:
-            description: "Internal server error. Consulte o campo error_description para maiores detalhes."
+            description: 'Internal server error. Consulte o campo error_description para maiores detalhes.'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
         Unauthorized:
-            description: "Falha na autenticação"
+            description: 'Falha na autenticação'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
         Conflict:
-            description: "Falha ao persistir dados na base de dados"
+            description: 'Falha ao persistir dados na base de dados'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
         Forbidden:
-            description: "Permissões insuficientes"
+            description: 'Permissões insuficientes'
             content:
                 application/json:
                     schema:
-                        $ref: "#/components/schemas/error_response"
+                        $ref: '#/components/schemas/error_response'
     schemas:
         error_response:
             type: object
