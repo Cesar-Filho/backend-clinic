@@ -147,8 +147,6 @@ components:
                     type: number
                 exam_type:
                     type: string
-                date:
-                    type: string
                 status:
                     type: string
                 __v:

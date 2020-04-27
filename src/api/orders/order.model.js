@@ -8,7 +8,6 @@ const orderModel = async () => {
             patient_id: { type: Number, required: true },
             exam_type: { type: String, uppercase: true, required: true, enum: ['HEMOGRAMA', 'RADIOGRAFIA'] },
             status: { type: String, required: true, uppercase: true, enum: ['AGUARDANDO', 'REALIZADO'] },
-            date: { type: Date, required: true },
         });
     }
 
