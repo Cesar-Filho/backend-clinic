@@ -91,7 +91,7 @@ paths:
                   name: id
                   required: true
                   schema:
-                      type:
+                      type: string
                 - in: path
                   name: order
                   required: true
