@@ -18,13 +18,13 @@ yarn serverless offline --cfg dev
 ```
 
 --cfg dev é para pegar as configurações de ambiente do arquivo '.env.dev.json'.
-Para testes crie o arquivo e coloque as informações abaixo:
+Para testes crie o arquivo e coloque informações do seu servidor mongodb atlas, exemplo:
 
 ```sh
 {
     "host": "mongodb+srv://<username>:<password>@cluster0-kw9mx.mongodb.net/test?retryWrites=true&w=majority",
-    "username": "clinic",
-    "password": "WWZPsBHg688rwsem"
+    "username": "username",
+    "password": "password"
 }
 
 ```
