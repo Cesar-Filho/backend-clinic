@@ -11,7 +11,7 @@ const orderModel = async () => {
         });
     }
 
-    return conn.model('orders');
+    return { connection: conn, model: conn.model('orders') };
 };
 
 export default orderModel;
